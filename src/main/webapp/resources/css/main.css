@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+body {
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+}
+
+.div_header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z_index: 1000;
+	background-color: #f8f8f8;
+	
+	border-bottom: 1px solid #ccc;
+	height : 100px;
+}
+
+.div_inner_header {
+	padding : 0px 10% 0px 10%;
+	text-align : right;
+}
+
+.div_content {
+	padding: 20px 10% 0px 10%;
+	margin-top : 100px; /* 헤더와의 간격 */
+	
+}
+
+.div_footer {
+	background-color: #f8f8f8;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	width: 100%;
+}
+
+.div_header	.btn_right {
+	
+	display: inline-block;
+	vertical-align: middle;
+	
+}
+
+.div_header	.span_right {
+	
+	display: inline-block;
+	vertical-align: middle;
+	
+}
+
+.div_header .thumb_img {
+	display: inline-block;
+	height : 100px;
+	vertical-align: middle;
+	
+}

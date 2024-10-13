@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lhs.home.user.mapper.SignUpMapper">
+
+	<!-- 사용자 ID 중복 조회 -->
+	<select id="selectDupicateUserId" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM TB_USER
+		 WHERE 1 = 1
+		   AND USER_ID = #{userId}
+	</select>
+   
+	<!-- 사용자 등록 -->
+	<insert id="insertUser" parameterType="UserDTO">
+		 <selectKey resultType="int" keyProperty="userNo" order="BEFORE">
+	        SELECT IFNULL(MAX(USER_NO), 0) + 1
+	          FROM TB_USER       
+	    </selectKey>
+		INSERT
+		  INTO TB_USER
+		     ( USER_NO
+		     , USER_ID
+		     , USER_PW
+		     , AUTH_TYPE
+		     , KAKAO_ID
+		     , NAVER_ID
+		     , GOOGLE_ID
+		     , FACEBOOK_ID
+		     , USER_BIRTH
+		     , USER_NAME
+		     , GENDER
+		     , MOBILE_NO
+		     , EMAIL
+		     , ZIP
+		     , ADDRESS
+		     , THUMB_IMG
+		     , USER_ROLE
+		     , USE_YN
+		     , LAST_LOGIN_DT
+		     , LOGIN_CO
+		     , ACCEPT
+		     , REGIST_DT
+		     , UPDT_DT
+		     )
+		VALUES
+		     ( #{userNo}
+		     , #{userId}
+		     , #{userPw}
+		     , #{authType}
+		     , #{kakaoId}
+		     , #{naverId}
+		     , #{googleId}
+		     , #{facebookId}
+		     , #{userBirth}
+		     , #{userName}
+		     , #{gender}
+		     , #{mobileNo}
+		     , #{email}
+		     , #{zip}
+		     , #{address}
+		     , #{thumbImg}
+		     , #{userRole}
+		     , #{useYn}
+		     , DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		     , #{loginCo}
+		     , #{accept}
+		     , DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		     , #{updtDt}
+		     )
+	</insert>
+   
+
+</mapper>
