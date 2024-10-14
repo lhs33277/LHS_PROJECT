@@ -47,7 +47,7 @@
 	}
 	
 	/* id 다시작성 */
-	function fnEnableId() {
+	function fnEnableUserId() {
 		
 		gl_idCheck = false;
 		
@@ -58,7 +58,7 @@
 	}
 	
 	/* 회원가입 submit */
-	function fnSignOnAction() {
+	function fnSignUpAction() {
 		
 		/* 정합성 check */
 		gl_validation = false;
@@ -168,7 +168,7 @@
 						<td>
 							<input type="text" id="userId" name="userId" oninput="fnInputTextFiltering(this)">
 							<input type="button" id="btn_idCheck" onclick="fnCheckDuplicateId()" value="중복확인">
-							<input type="button" id="btn_idEnable" onclick="fnEnableId()" value="다시작성">
+							<input type="button" id="btn_idEnable" onclick="fnEnableUserId()" value="다시작성">
 						</td>
 					</tr>
 					<tr>
@@ -190,7 +190,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td><input type="button" id="btn_signOn" onclick="fnSignOnAction()" value="가입하기"><input type="button" id="btn_back" value="돌아가기"></td>
+						<td><input type="button" id="btn_signUp" onclick="fnSignUpAction()" value="가입하기"><input type="button" id="btn_back" value="돌아가기"></td>
 					
 					</tr>
 				
