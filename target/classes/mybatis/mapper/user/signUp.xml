@@ -64,13 +64,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		     , #{thumbImg}
 		     , #{userRole}
 		     , #{useYn}
-		     , DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		     , #{lastLoginDt}
 		     , #{loginCo}
 		     , #{accept}
 		     , DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 		     , #{updtDt}
 		     )
 	</insert>
+	
+	<update id="updateUser" parameterType="UserDTO">
+		UPDATE TB_USER
+		   SET USER_NO = #{userNo}
+		     , USER_ID = #{userId}
+		     , USER_PW = #{userPw}
+		     , AUTH_TYPE = #{authType}
+		     , KAKAO_ID = #{kakaoId}
+		     , NAVER_ID = #{naverId}
+		     , GOOGLE_ID = #{googleId}
+		     , FACEBOOK_ID = #{facebookId}
+		     , USER_BIRTH = #{userBirth}
+		     , USER_NAME = #{userName}
+		     , GENDER = #{gender}
+		     , MOBILE_NO = #{mobileNo}
+		     , EMAIL = #{email}
+		     , ZIP = #{zip}
+		     , ADDRESS = #{address}
+		     , THUMB_IMG = #{thumbImg}
+		     , USER_ROLE = #{userRole}
+		     , USE_YN = #{useYn}
+		     , LAST_LOGIN_DT = #{lastLoginDt}
+		     , LOGIN_CO = #{loginCo}
+		     , ACCEPT = #{accept}
+		     , REGIST_DT = #{registDt}
+		     , UPDT_DT = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+	     WHERE 1 = 1
+	       AND USER_NO = #{userNo}
+	
+	</update>
    
 
 </mapper>

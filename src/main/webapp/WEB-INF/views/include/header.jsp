@@ -29,18 +29,24 @@
 </script>
 </head>
 <body>
-	<div class="div_inner_header">
+	<div class="div_main_header">
+		<a href="/"><img src="../../resources/images/loggo.png" class="img_loggo"></a>
+	</div>
+	<div class="div_right_header">
 		
 		<c:if test="${sessionScope.userDTO != null}">
-		
-			<img src="${sessionScope.userDTO.thumbImg}" class="thumb_img"/>
-			<span class="span_right">${sessionScope.userDTO.userName}님 환영합니다.</span>
-			<input type="button" id="btn_logOut" class="btn_right" value="로그아웃" onclick="fnLogOutAction()">
-		
+			<div class="div_header_image">
+				<img src="${sessionScope.userDTO.thumbImg}" class="thumb_img"/>
+			</div>
+			<div>
+				<h3>${sessionScope.userDTO.userName}님 환영합니다.</h3>
+				<input type="button" id="btn_logOut" class="btn_right" value="로그아웃" onclick="fnLogOutAction()">
+				<input type="button" id="btn_d" class="btn_right" value="마이페이지" onclick="">
+			</div>
 		</c:if>
 		
 		<c:if test="${sessionScope.userDTO == null}">
-			<input type="button" id="btn_signIn" class="btn_right" value="로그인하러가기" onclick="fnLoginFormPage()">
+			<input type="button" id="btn_signIn" class="btn_right" value="로그인" onclick="fnLoginFormPage()">
 			<input type="button" id="btn_signUp" class="btn_right" value="회원가입" onclick="fnSignUpFormPage()">
 		</c:if>
 	</div>

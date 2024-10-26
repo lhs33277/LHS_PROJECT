@@ -26,5 +26,12 @@ public class SignUpServiceImpl implements SignUpService {
 
 		return signUpMapper.insertUser(loginDTO);
 	}
+	
+	/* 사용자 수정 */
+	@Override
+	public int updateUser(UserDTO loginDTO) {
+		
+		return signUpMapper.updateUser(loginDTO);
+	}
 
 }

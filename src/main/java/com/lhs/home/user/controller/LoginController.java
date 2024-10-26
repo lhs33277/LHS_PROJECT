@@ -18,11 +18,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lhs.home.user.domain.UserDTO;
 import com.lhs.home.user.service.LoginService;
+import com.lhs.home.user.service.ProfileService;
 import com.lhs.home.user.service.SignUpService;
+import com.lhs.home.utils.CryptoUtils;
+import com.lhs.home.utils.JSPUtils;
+import com.lhs.home.utils.LhsException;
 import com.lhs.home.utils.LhsUtils;
+import com.lhs.home.utils.MessageUtils;
+import com.lhs.home.utils.StringUtils;
 
 
 @Controller
@@ -36,18 +43,46 @@ public class LoginController {
 	
 	@Autowired
 	private SignUpService signUpService;
-	
 
+	@Autowired
+	private ProfileService profileService;
+	
+	/* 로그인 */
 	@RequestMapping("/loginAction.do")
-	public String login(HttpServletRequest request) {
+	public String loginAction(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception, LhsException {
 		
-		return "user/loginForm";
+		/* parameter */
+		String userId = request.getParameter("userId");
+		
+		/* 고객 정보 조회 */
+		UserDTO userDTO = profileService.selectUserByUserId(userId);
+		
+		/* id 확인 */
+		if(StringUtils.isNull(userDTO)) {
+			return JSPUtils.alertAndRedirect(redirectAttributes, "존재하지 않는 ID입니다.", "/page/loginFormPage.do");
+		}
+		
+		/* 암호 확인 */
+		if( CryptoUtils.checkPassword( request.getParameter("userPw"), userDTO.getUserPw() ) ) {
+			
+			/* 로그인 전처리 */
+			userDTO = loginService.updatePrePareLogin(userDTO);
+			
+			/* 로그인 처리 */
+			HttpSession session = request.getSession();
+			session.setAttribute("userDTO", userDTO);
+			
+			return JSPUtils.alertAndRedirect(redirectAttributes, "로그인 되었습니다.", "/");
+			
+		} else {
+			return JSPUtils.alertAndRedirect(redirectAttributes, "비밀번호가 일치하지 않습니다.", "/page/loginFormPage.do");
+		}
 		
 	}
 
 	/* 카카오 로그인 api */
 	@RequestMapping({ "/kakaoLoginAction.do" })
-	public String kakaoLogin(@RequestParam String code, HttpServletRequest request, Model model) {
+	public String kakaoLogin(@RequestParam String code, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 		
 		try {
 			
@@ -151,10 +186,10 @@ public class LoginController {
 			log.info("phone_number : " + phoneNumber);
 			
 			/* 생년월일 */
-			String birth = "";
+			String userBirth = "";
 			if (birthday != null && !"".equals(birthday) && birthyear != null && !"".equals(birthyear)) {
-				birth = String.valueOf(birthyear) + birthday;
-				log.info("birth : " + birth);
+				userBirth = String.valueOf(birthyear) + birthday;
+				log.info("userBirth : " + userBirth);
 			}
 			
 			/* 휴대폰번호 */
@@ -165,21 +200,55 @@ public class LoginController {
 			gender = "male".equals(gender) ? "남" : ("female".equals(gender) ? "여" : "");
 			
 			/* 기존 회원 정보 조회 (휴대폰번호) */
+			UserDTO userDTO = profileService.selectUserByMobileNo(monileNo);
+			
+			/* 로그인 session */
 			HttpSession session = request.getSession();
 			
-			UserDTO userDTO = loginService.selectUserByMobileNo(monileNo);
-			
-			if(userDTO != null) {
+			/* 1.기존 회원 정보가 있는 경우 */
+			if(!StringUtils.isNull(userDTO)) {
 				
-				/* 로그인 전처리 */
-				userDTO = loginService.updatePrefixLogin(userDTO);
-				
-				/* 로그인 처리 */
-				session.setAttribute("userDTO", userDTO);
+				/* 1-1. kakao 첫 로그인인 경우 */
+				if(StringUtils.isNull(userDTO.getKakaoId())) {
 					
-				return "redirect: /";
+					/* 기존 정보에 kakao 로그인 정보 set */
+					userDTO.setKakaoId(id);
+					userDTO.setUserBirth(userBirth);
+					userDTO.setUserName(name);
+					userDTO.setGender(gender);
+					userDTO.setMobileNo(monileNo);
+					userDTO.setEmail(email);
+					userDTO.setThumbImg(thumbnailImageUrl);
+					userDTO.setUseYn("Y");
+					
+					
+					signUpService.updateUser(userDTO);
+					
+					/* 로그인 전처리 */
+					userDTO = loginService.updatePrePareLogin(userDTO);
+					
+					/* 로그인 처리 */
+					session.setAttribute("userDTO", userDTO);
+					return JSPUtils.alertAndRedirect(redirectAttributes, "기존 회원 정보가 존재하여 현재 가입한 정보와 연동되었습니다.", "/");
+					
+				}
 				
-			} else {
+				/* 1-2. kakao 로그인 정보가 있는경우 */
+				else {
+					
+					/* 로그인 전처리 */
+					userDTO = loginService.updatePrePareLogin(userDTO);
+					
+					/* 로그인 처리 */
+					session.setAttribute("userDTO", userDTO);
+					return JSPUtils.alertAndRedirect(redirectAttributes, "로그인 되었습니다.", "/");
+				}
+				
+			}
+			
+			/* 2. 기존 회원 정보가 없는 경우 */
+			else {
+				
 				/* 신규 등록 */
 				userDTO = UserDTO.builder()
 						.userNo(null)
@@ -190,7 +259,7 @@ public class LoginController {
 						.naverId(null)
 						.googleId(null)
 						.facebookId(null)
-						.userBirth(birth)
+						.userBirth(userBirth)
 						.userName(name)
 						.gender(gender)
 						.mobileNo(monileNo)
@@ -201,7 +270,7 @@ public class LoginController {
 						.userRole("사용자")
 						.useYn("Y")
 						.lastLoginDt(null)
-						.loginCo(1)
+						.loginCo(null)
 						.accept(null)
 						.registDt(null)
 						.updtDt(null)
@@ -211,7 +280,13 @@ public class LoginController {
 				if(res < 1) {
 					throw new Exception("안됐음");
 				}
+				
+				/* 로그인 전처리 */
+				userDTO = loginService.updatePrePareLogin(userDTO);
+				
+				/* 로그인 처리 */
 				session.setAttribute("userDTO", userDTO);
+				return JSPUtils.alertAndRedirect(redirectAttributes, "로그인 되었습니다.\\n신규 방문을 환영합니다.", "/");
 				
 			}
 			
@@ -225,14 +300,14 @@ public class LoginController {
 
 	/* 로그아웃 */
 	@RequestMapping({ "/logOutAction.do" })
-	public String logOutAction(HttpServletRequest request, Model model) {
+	public String logOutAction(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 		
 		HttpSession session = request.getSession();
-		if(session != null) {
+		if(!StringUtils.isNull(session)) {
 			session.invalidate();
 		}
 		
-		return "redirect: /";
+		return JSPUtils.alertAndRedirect(redirectAttributes, "로그아웃 되었습니다.", "/");
 		
 	}
 }

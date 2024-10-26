@@ -1,4 +1,4 @@
-package com.lhs.home.main.controller;
+package com.lhs.home.base.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,16 +20,26 @@ public class PageController {
 	
 	/* 로그인 page 이동 */
 	@RequestMapping("/loginFormPage.do")
-	public String loginForm(Model model) {
-		
+	public String loginFormPage(Model model) {
 		return JSPUtils.modelAndJsp(model, "/user/loginForm");
-		
 	}
 	
 	/* 회원가입 page 이동 */
 	@RequestMapping("/signUpFormPage.do")
-	public String joinForm(Model model) {
+	public String joinFormPage(Model model) {
 		return JSPUtils.modelAndJsp(model, "user/signUpForm");
 		
+	}
+	
+	/* 공지사항 page 이동 */
+	@RequestMapping("/noticePage.do")
+	public String noticePage(Model model) {
+		return JSPUtils.modelAndJsp(model, "board/notice");
+	}
+	
+	/* 공지사항 게시글 작성 page 이동 */
+	@RequestMapping("/writeFormPage.do")
+	public String writeFormPage(Model model) {
+		return JSPUtils.modelAndJsp(model, "board/writeForm");
 	}
 }

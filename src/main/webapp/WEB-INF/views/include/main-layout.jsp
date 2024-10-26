@@ -6,21 +6,18 @@
 <meta charset="UTF-8">
 <title>main-layout</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/content.css">
 <script src="../resources/js/jquery-3.6.0.js"></script>
+<script src="../resources/js/main.js"></script>
 <script>
 
 	/* main-layout에 공통 onload 함수들을 선언한다. */
 	$(document).ready(function() {
 		
+		/* 팝업 처리 */
 		
 		/* alertMsg 처리 */
 		var alertMsg = '${alertMsg}';
-		console.log('${alertMsg}');
-		console.log('${alertMsg}' != 'null');
-		console.log('${alertMsg}' != "");
-		
-		
-		
 		if('${alertMsg}' != 'null' && '${alertMsg}' != "") {
 			alert(alertMsg);
 		}
@@ -33,9 +30,14 @@
 	<div class="div_header">
 		<jsp:include page="header.jsp"/>
 	</div>
-	
-	<div class="div_content">
-		<jsp:include page="${pageContent}.jsp"/>
+	<div class="container">
+		<div class="div_side">
+			<jsp:include page="side.jsp"/>
+		</div>
+		
+		<div class="div_content">
+			<jsp:include page="${pageContent}.jsp"/>
+		</div>
 	</div>
 	
 	<div class="div_footer">

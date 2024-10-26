@@ -19,7 +19,8 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 
-@MapperScan(basePackages={"com.lhs.home.user.mapper"})
+//@MapperScan(basePackages={"com.lhs.home.user.mapper", "com.lhs.home.board.mapper", "com.lhs.home.base.mapper"})
+@MapperScan(basePackages={"com.lhs.home"})
 @PropertySource(value={"classpath:mybatis/properties/db.properties"})
 @EnableTransactionManagement
 @Configuration

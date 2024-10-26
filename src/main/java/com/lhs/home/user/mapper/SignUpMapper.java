@@ -12,5 +12,8 @@ public interface SignUpMapper {
 	
 	/* 사용자 등록 */
 	public int insertUser(UserDTO loginDTO);
+	
+	/* 사용자 수정 */
+	public int updateUser(UserDTO loginDTO);
 
 }

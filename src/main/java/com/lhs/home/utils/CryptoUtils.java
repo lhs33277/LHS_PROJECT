@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-public class CrytpUtils {
+public class CryptoUtils {
 	
 	/* hash 암호화 모듈 [encodedSalt:SHA256(password + salt)] */
 	public static String encrytPassword(String password) throws Exception {

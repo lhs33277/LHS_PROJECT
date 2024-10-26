@@ -1,20 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	$(document).ready(function(){
+		
+	})
+	
+	function fnLogin() {
+		$('#loginForm').prop('method', "post");
+		$('#loginForm').prop('action', "/login/loginAction.do");
+		$('#loginForm').submit();
+	}
+	
+</script>
 </head>
 <body>
 	
 	
 	<div>
 		로그인하자
-		<form>
-			id : <input type="text" name="id">
-			pw : <input type="text" name="pw">
-			<input type="button" id="login" value="로그인">
+		<form id="loginForm">
+			id : <input type="text" name="userId">
+			pw : <input type="password" name="userPw">
+			<input type="button" id="btn_login" value="로그인" onclick="fnLogin()">
 		</form>
 	
 	</div>
