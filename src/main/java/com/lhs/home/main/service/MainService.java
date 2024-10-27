@@ -1,4 +1,4 @@
-package com.lhs.home.base.service;
+package com.lhs.home.main.service;
 
 public interface MainService {
 

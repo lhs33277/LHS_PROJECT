@@ -20,6 +20,15 @@ public class StringUtils {
 		return false;
 	}
 	
+	/*  */
+	public static boolean isEmpty(String inputStr) {
+		if("".equals(inputStr)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	/* 첫 번 째 인자가 null이면, 2번 째 인자 반환 */
 	public static String nvl(String inputStr, String value) throws Exception {
 		if(value == null) {

@@ -1,4 +1,4 @@
-package com.lhs.home.base.controller;
+package com.lhs.home.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
