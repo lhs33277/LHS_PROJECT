@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+/* 공통 */
+.div_right { float: right; display: flex;}
+.div_right .btn_right { float: right; width: 70px; height: 30px; margin : 10px 0 0 5px;}
+
+/* table 공통 */
+table { width: 100%; border-collapse: collapse; }
+table, td, th { border: 1px solid; }
+td { width: 100%; background-color:#6254cb0a; }
+tr { height: 40px; }
+th { background-color: lavender;}
+table td > *:first-child{ margin-left: 10px; }
+table td > *:last-child{ margin-right: 10px; }
+td .check { color: red; }
+td .on { color: green; }
+
+/* 회원가입 form */
+.firstSufRrn { width: 10px; }
+.email2 { width: 100px; }
+.mobileNo2 { width: 50px; }
+.mobileNo3 { width: 50px; }
+.email1 { width: 100px; }
+
+/* 게시판 form */
+.tr_content { height: 500px; }
+.txt_content { width: 95%; height: 450px; }
+.formTable .txt_title { width: 95%;}
+

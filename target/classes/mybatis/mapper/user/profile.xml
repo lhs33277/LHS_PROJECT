@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lhs.home.user.mapper.ProfileMapper">
+
+	<!-- 사용자 조회 (고객번호) -->
+	<select id="selectUserByUserNo" parameterType="int" resultType="UserDTO">
+		SELECT USER_NO
+		     , USER_ID
+		     , USER_PW
+		     , AUTH_TYPE
+		     , KAKAO_ID
+		     , NAVER_ID
+		     , GOOGLE_ID
+		     , FACEBOOK_ID
+		     , USER_BIRTH
+		     , USER_NAME
+		     , GENDER
+		     , MOBILE_NO
+		     , EMAIL
+		     , ZIP
+		     , ADDRESS
+		     , THUMB_IMG
+		     , USER_ROLE
+		     , USE_YN
+		     , LAST_LOGIN_DT
+		     , LOGIN_CO
+		     , ACCEPT
+		     , REGIST_DT
+		     , UPDT_DT
+		  FROM TB_USER
+		 WHERE 1 = 1
+		   AND USER_NO = #{userNo}
+	</select>
+   
+	<!-- 사용자 조회 (ID) -->
+	<select id="selectUserByUserId" parameterType="String" resultType="UserDTO">
+		SELECT USER_NO
+		     , USER_ID
+		     , USER_PW
+		     , AUTH_TYPE
+		     , KAKAO_ID
+		     , NAVER_ID
+		     , GOOGLE_ID
+		     , FACEBOOK_ID
+		     , USER_BIRTH
+		     , USER_NAME
+		     , GENDER
+		     , MOBILE_NO
+		     , EMAIL
+		     , ZIP
+		     , ADDRESS
+		     , THUMB_IMG
+		     , USER_ROLE
+		     , USE_YN
+		     , LAST_LOGIN_DT
+		     , LOGIN_CO
+		     , ACCEPT
+		     , REGIST_DT
+		     , UPDT_DT
+		  FROM TB_USER
+		 WHERE 1 = 1
+		   AND USER_ID = #{userId}
+	</select>
+	
+	<!-- 사용자 조회 (휴대폰번호) -->
+	<select id="selectUserByMobileNo" parameterType="String" resultType="UserDTO">
+		SELECT USER_NO
+		     , USER_ID
+		     , USER_PW
+		     , AUTH_TYPE
+		     , KAKAO_ID
+		     , NAVER_ID
+		     , GOOGLE_ID
+		     , FACEBOOK_ID
+		     , USER_BIRTH
+		     , USER_NAME
+		     , GENDER
+		     , MOBILE_NO
+		     , EMAIL
+		     , ZIP
+		     , ADDRESS
+		     , THUMB_IMG
+		     , USER_ROLE
+		     , USE_YN
+		     , LAST_LOGIN_DT
+		     , LOGIN_CO
+		     , ACCEPT
+		     , REGIST_DT
+		     , UPDT_DT
+		  FROM TB_USER
+		 WHERE 1 = 1
+		   AND MOBILE_NO = #{mobileNo}
+	</select>
+   
+
+</mapper>

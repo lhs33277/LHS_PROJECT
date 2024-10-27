@@ -1,0 +1,25 @@
+drop table TB_BOARD;
+
+CREATE table TB_BOARD
+(
+	BOARD_CODE INTEGER(2),
+	BOARD_NO INTEGER(12),
+	USER_NO INTEGER(12),
+	TITLE VARCHAR(20),
+	CONTENT VARCHAR(20),
+	FILE_NO INTEGER(12),
+	HIT INTEGER(5),
+	DEL_YN CHAR(1),
+	REGIST_DT VARCHAR(14),
+	UPDT_DT VARCHAR(14),
+	UPDT_NAME VARCHAR(30)
+	
+);
+
+alter TABLE TB_BOARD add primary KEY(BOARD_CODE, BOARD_NO);
+alter table TB_BOARD change column user_id user_no INTEGER(12);
+alter table TB_BOARD drop column MOBILE_NO;
+
+
+
+select * from TB_BOARD;
