@@ -16,9 +16,15 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	
 	@Override
-	public List<BoardDTO> selectBoardListByBoardCode(String boardCode) {
+	public List<BoardDTO> selectBoardListByBoardCode(int boardCode) {
 		
 		return boardMapper.selectBoardListByBoardCode(boardCode);
+	}
+	
+	@Override
+	public int insertBoard(BoardDTO boardDTO) {
+		
+		return boardMapper.insertBoard(boardDTO);
 	}
 
 }

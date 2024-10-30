@@ -1,15 +1,19 @@
 package com.lhs.home.user.domain;
 
+import com.lhs.home.base.domain.BaseDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserDTO extends BaseDTO{
 
 	private Integer userNo;			// 고객번호
 

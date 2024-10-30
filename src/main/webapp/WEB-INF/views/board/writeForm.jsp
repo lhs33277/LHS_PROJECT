@@ -6,10 +6,35 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
+	
+	var gl_validate = false;
 	function fnWriteSubmit() {
 		
+		fnBoardValidate();
+		if(!gl_validate) {
+			return;
+		}
+		
+		$('#boardCode').val(1001); // 1001 공지사항
 		$('#writeForm').attr('action', '/board/insertBoard.do');
 		$('#writeForm').submit();
+	}
+	
+	function fnBoardValidate() {
+		console.log($('#title').val());
+		if($('#title').val().length < 5) {
+			gfn_alert('제목은 5글자 이상 입력해주세요.');
+			gl_validate = false;
+			return;
+		}
+		
+		if($('#content').val().length < 10) {
+			gfn_alert('내용은 10글자 이상 입력해주세요.');
+			gl_validate = false;
+			return;
+		}
+		
+		gl_validate = true;
 	}
 	
 	function fnFileCheck(obj) {
@@ -40,7 +65,7 @@
 <body>
 	<div>
 		<form id="writeForm" method="post" enctype="multipart/form-data">
-			<input type="hidden">
+			<input type="hidden" id="boardCode" name="boardCode">
 			
 			<table class="formTable">
 				<colgroup>

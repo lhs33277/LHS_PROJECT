@@ -6,8 +6,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.lhs.home.board.mapper.BoardMapper">
 	
 	<!-- 게시판 목록 조회 -->
-	<select id="selectBoardListByBoardCode" parameterType="String" resultType="BoardDTO">
-		SELECT BOARD_CODE
+	<select id="selectBoardListByBoardCode" parameterType="int" resultType="BoardDTO">
+		SELECT A.BOARD_CODE
+			 , A.BOARD_NO
+			 , A.USER_NO
+			 , A.TITLE
+			 , A.CONTENT
+			 , A.FILE_NO
+			 , A.HIT
+			 , A.DEL_YN
+			 , A.DEL_CNTN
+			 , A.REGIST_DT
+			 , A.UPDT_DT
+			 , A.UPDT_USER_NO
+			 , B.USER_NAME
+		  FROM TB_BOARD A
+		     , TB_USER  B
+		 WHERE 1 = 1
+		   AND A.USER_NO = B.USER_NO
+		   AND A.BOARD_CODE = #{boardCode}
+	</select>
+	
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="BoardDTO">
+		<selectKey resultType="int" keyProperty="boardNo" order="BEFORE">
+	        SELECT IFNULL(MAX(BOARD_NO), 0) + 1
+	          FROM TB_BOARD       
+	    </selectKey>
+		INSERT
+		  INTO TB_BOARD
+		     ( BOARD_CODE
 			 , BOARD_NO
 			 , USER_NO
 			 , TITLE
@@ -19,11 +47,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 , REGIST_DT
 			 , UPDT_DT
 			 , UPDT_USER_NO
-		  FROM TB_BOARD
-		 WHERE 1 = 1
-		   AND BOARD_CODE = #{boardCode}
-	</select>
-	
+		     )
+		VALUES
+		     ( #{boardCode}
+		     , #{boardNo}
+		     , #{userNo}
+		     , #{title}
+		     , #{content}
+		     , #{fileNo}
+		     , 0
+		     , 'N'
+		     , #{delCntn}
+		     , DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		     , #{updtDt}
+		     , #{updtUserNo}
+		     )
+		     
+	</insert>
 	
 	
    

@@ -1,7 +1,6 @@
 package com.lhs.home.utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -17,19 +16,16 @@ public class FileUtils {
 		}
 		
 		File dir = new File(FileUtils.getTodayPath());
+		
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
-		File file = new File(dir, getUUID(multipartFile.getOriginalFilename()));
 		
-		try {
-			multipartFile.transferTo(file);
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
+		File realFile = new File(dir, getUUID(multipartFile.getOriginalFilename()));
+
+		multipartFile.transferTo(realFile);
 		
-		
-		return file;
+		return realFile;
 		
 	}
 	

@@ -1,15 +1,20 @@
 package com.lhs.home.board.domain;
 
+import com.lhs.home.base.domain.BaseDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class BoardDTO {
+@NoArgsConstructor
+
+public class BoardDTO extends BaseDTO{
 	
 	public Integer boardCode; // 게시판코드
 	
@@ -34,5 +39,9 @@ public class BoardDTO {
 	public String updtDt; // 수정일자
 	
 	public Integer updtUserNo; // 수정고객번호
+	
+	public String userName; // 고객명
+	
+	
 
 }

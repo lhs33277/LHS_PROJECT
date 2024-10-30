@@ -6,26 +6,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 public class Test {
-	
-	private static ServletContext servletContext;
-	
-	public Test(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
 
 	public static void main(String[] args) {
-		HttpServletRequest request;
-		//System.out.println(abc(request));
 		
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(calendar.YEAR);
-		System.out.println(servletContext.getRealPath("/"));
-
+		int a = 3;
+		int b = 1;
+		System.out.println(b/3);
 	}
 	
-	public static String abc(HttpServletRequest request) {
-		ServletContext servletContext = request.getServletContext();
-		return servletContext.getRealPath("/resources/");
-	}
 
 }
